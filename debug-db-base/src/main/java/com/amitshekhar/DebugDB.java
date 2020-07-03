@@ -46,21 +46,25 @@ public class DebugDB {
         // This class in not publicly instantiable
     }
 
-    public static void initialize(Context context, DBFactory dbFactory) {
+    public static void initialize(Context depContext, Context targetContext, DBFactory dbFactory) {
         int portNumber;
 
         try {
-            portNumber = Integer.valueOf(context.getString(R.string.PORT_NUMBER));
+            portNumber = Integer.valueOf(depContext.getString(R.string.PORT_NUMBER));
         } catch (NumberFormatException ex) {
             Log.e(TAG, "PORT_NUMBER should be integer", ex);
             portNumber = DEFAULT_PORT;
             Log.i(TAG, "Using Default port : " + DEFAULT_PORT);
         }
 
-        clientServer = new ClientServer(context, portNumber, dbFactory);
+        clientServer = new ClientServer(depContext, targetContext, portNumber, dbFactory);
         clientServer.start();
-        addressLog = NetworkUtils.getAddressLog(context, portNumber);
+        addressLog = NetworkUtils.getAddressLog(depContext, portNumber);
         Log.d(TAG, addressLog);
+    }
+
+    public static void initialize(Context context, DBFactory dbFactory) {
+        initialize(context, context, dbFactory);
     }
 
     public static String getAddressLog() {

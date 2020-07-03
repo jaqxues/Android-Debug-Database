@@ -69,9 +69,9 @@ public class RequestHandler {
     private String mSelectedDatabase = null;
     private HashMap<String, SupportSQLiteDatabase> mRoomInMemoryDatabases = new HashMap<>();
 
-    public RequestHandler(Context context, DBFactory dbFactory) {
-        mContext = context;
-        mAssets = context.getResources().getAssets();
+    public RequestHandler(Context depContext, Context targetContext, DBFactory dbFactory) {
+        mContext = targetContext;
+        mAssets = depContext.getResources().getAssets();
         mGson = new GsonBuilder().serializeNulls().create();
         mDbFactory = dbFactory;
     }

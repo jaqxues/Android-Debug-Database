@@ -46,8 +46,8 @@ public class ClientServer implements Runnable {
     private boolean mIsRunning;
     private ServerSocket mServerSocket;
 
-    public ClientServer(Context context, int port, DBFactory dbFactory) {
-        mRequestHandler = new RequestHandler(context, dbFactory);
+    public ClientServer(Context depContext, Context targetContext, int port, DBFactory dbFactory) {
+        mRequestHandler = new RequestHandler(depContext, targetContext, dbFactory);
         mPort = port;
     }
 
